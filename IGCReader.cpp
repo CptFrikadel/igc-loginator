@@ -27,23 +27,25 @@ void IGCReader::readIGC(){
             std::cout << "Parsing: " << file_name << std::endl;
 
 
-            // Read through the file and parse relevant data
             std::string line;
             std::string time_line;
-            bool found_first = false;
+            bool found_takeoff = false;
 
+            // Parse file line by line
             while(std::getline(igc_file, line)){
 
-                if (line[0] == 'F'){
-                    // line is a time stamp
+                if (line[0] == 'B'){
+                    // line is a position report
                     time_line = line;
 
-                    if (!found_first){
-                        // First timestamp, set takeoff time
+                    if (!found_takeoff){
+                        // First position, set takeoff time
+
+                        // TODO: add altitude condition
 
                         std::cout << line << std::endl;
                         flight_data.takeoff_time = parseTime(line);
-                        found_first = true;
+                        found_takeoff = true;
                     }
                 }
             }
