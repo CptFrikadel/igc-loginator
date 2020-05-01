@@ -2,7 +2,7 @@
     Logbook class
 */
 
-#include <vector>
+#include <list>
 #include "FlightData.hpp"
 
 class Logbook {
@@ -13,6 +13,6 @@ public:
     void appendFlight(FlightData flight);
 
 private:
-    std::vector<FlightData> flights;
+    std::list<FlightData> flights;
 
 };
