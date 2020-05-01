@@ -1,6 +1,8 @@
 /*
     Logbook class
 */
+#ifndef LOGBOOK_HPP
+#define LOGBOOK_HPP
 
 #include <list>
 #include "FlightData.hpp"
@@ -16,3 +18,5 @@ private:
     std::list<FlightData> flights;
 
 };
+
+#endif

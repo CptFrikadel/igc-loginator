@@ -1,17 +1,22 @@
 /*
     Class defenition for an IGC reader object
 */
-#include <fstream>
-#include "FlightData.hpp"
 
+#ifndef IGCREADER_HPP
+#define IGCREADER_HPP
+
+#include "FlightData.hpp"
+#include <string>
 class IGCReader {
 
 public:
-    IGCReader(std::ifstream file);
+    IGCReader(std::string file);
     void readIGC();
 
 private:
     FlightData flight_data;
-    std::ifstream file;
+    std::string file_name;
 
 };
+
+#endif
