@@ -2,14 +2,14 @@ CC = g++
 
 CFLAGS = -g
 
-DEPS = flightdata.hpp
-OBJ = flightdata.o main.o
+DEPS = Logbook.hpp IGCReader.hpp FlightData.hpp
+OBJ = Logbook.o IGCReader.o main.o
 
 %.o: %.cpp $(DEPS)
 	$(CC) -Wall -c -o $@ $< $(CFLAGS)
 
 logbook: $(OBJ)
-	$(CC) -Wall -o $@ $^ $(CFLAGS)  
+	$(CC) -Wall -o $@ $^ $(CFLAGS)
 
 clean:
 	rm *.o
