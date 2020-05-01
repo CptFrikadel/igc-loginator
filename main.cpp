@@ -3,6 +3,7 @@
 #include <list>
 
 #include "IGCReader.hpp"
+#include "Logbook.hpp"
 
 int main (int argc, char * argv[]){
 
@@ -16,17 +17,19 @@ int main (int argc, char * argv[]){
 
     std::list<std::string> files(argv + 1, argv + argc);
 
+    Logbook logbook;
     // parse all files
     for (std::string f : files){
 
         IGCReader reader(f);
 
-        reader.readIGC();
+        logbook.appendFlight(reader.readIGC());
+
     }
 
-    // generate Logbook
 
     // Print result
+    logbook.printLogbook();
 
     return 0;
 }

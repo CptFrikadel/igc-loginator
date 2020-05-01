@@ -11,7 +11,7 @@ class IGCReader {
 
 public:
     IGCReader(const std::string file);
-    void readIGC();
+    FlightData readIGC();
 
 private:
     FlightData flight_data;

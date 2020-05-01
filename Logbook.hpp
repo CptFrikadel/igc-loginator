@@ -12,10 +12,11 @@ class Logbook {
 public:
 
     void printLogbook();
-    void appendFlight(FlightData flight);
+    void appendFlight(const FlightData flight);
 
 private:
     std::list<FlightData> flights;
+    bool print_totals = true;
 
 };
 

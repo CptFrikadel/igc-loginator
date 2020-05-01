@@ -17,7 +17,7 @@ IGCReader::IGCReader(const std::string _file): file_name(_file){
 
 }
 
-void IGCReader::readIGC(){
+FlightData IGCReader::readIGC(){
 
         std::ifstream igc_file(file_name);
 
@@ -26,7 +26,7 @@ void IGCReader::readIGC(){
 
         } else {
             std::cerr << "Unable to open file: " << file_name << std::endl;
-            return;
+            exit(-1);
         }
 
         std::string line;
@@ -86,4 +86,6 @@ void IGCReader::readIGC(){
 
 
         std::cerr << "Duration: " << flight_data.flight_duration << " seconds" << std::endl;
+
+        return flight_data;
 }
