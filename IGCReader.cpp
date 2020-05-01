@@ -2,7 +2,7 @@
 #include <fstream>
 #include "IGCReader.hpp"
 
-static std::tm parseTime(std::string line){
+static std::tm parseTime(const std::string line){
 
     std::tm time;
 
@@ -15,7 +15,7 @@ static std::tm parseTime(std::string line){
     return time;
 }
 
-IGCReader::IGCReader(std::string _file): file_name(_file){
+IGCReader::IGCReader(const std::string _file): file_name(_file){
 
 }
 
@@ -47,8 +47,6 @@ void IGCReader::readIGC(){
                     // First position, set takeoff time
 
                     // TODO: add altitude condition
-
-                    std::cout << line << std::endl;
                     flight_data.takeoff_time = parseTime(line);
                     found_takeoff = true;
                 }
@@ -67,9 +65,28 @@ void IGCReader::readIGC(){
 
             }
         }
+
+        igc_file.close();
+
         flight_data.landing_time = parseTime(time_line);
         std::cout << date << std::endl;
 
+        // Set date in takeoff_time and landing_time
+        flight_data.takeoff_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
+        flight_data.takeoff_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0');
+        flight_data.takeoff_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
 
-        igc_file.close();
+        flight_data.landing_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
+        flight_data.landing_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0');
+        flight_data.landing_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
+
+        std::cout << asctime(&flight_data.takeoff_time);
+        std::cout << asctime(&flight_data.landing_time) << std::endl;
+
+        // Calculate flight time
+        flight_data.flight_duration = std::difftime(std::mktime(&flight_data.landing_time),
+                                        std::mktime(&flight_data.takeoff_time));
+
+
+        std::cout << flight_data.flight_duration << std::endl;
 }

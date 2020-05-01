@@ -10,7 +10,7 @@
 class IGCReader {
 
 public:
-    IGCReader(std::string file);
+    IGCReader(const std::string file);
     void readIGC();
 
 private:

@@ -11,7 +11,7 @@ struct  FlightData {
 
     std::tm takeoff_time;
     std::tm landing_time;
-    unsigned int flight_duration;
+    double flight_duration;
 
 };
 
