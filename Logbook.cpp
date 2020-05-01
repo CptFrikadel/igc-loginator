@@ -7,8 +7,16 @@
 void Logbook::printLogbook(){
 
 
-    std::cout << std::left << std::setw(10) << "Date" << "|" << std::setw(11) << "Takeoff"
-        << "|" << std::setw(11) << "Landing" << "|"<< std::setw(6) << "Duration" << std::endl;
+    std::cout << std::left << "| "
+        << std::setw(11) << "Date" << "| "
+        << std::setw(11) << "Takeoff" << "| "
+        << std::setw(11) << "Landing" << "| "
+        << std::setw(9) << "Duration" << "|"
+        << std::endl;
+
+    std::cout <<  std::setfill('-') << std::setw(51) << "-" << std::endl << std::setfill(' ');
+
+    int total_time = 0;
 
     for (FlightData n : flights){
 
@@ -17,6 +25,7 @@ void Logbook::printLogbook(){
         char landing[10];
         int duration_hours;
         int duration_minutes;
+        char duration[6];
 
         std::strftime(date, 10, "%d-%m-'%y", &n.takeoff_time);
         std::strftime(takeof, 9, "%H:%M:%S", &n.takeoff_time);
@@ -24,10 +33,32 @@ void Logbook::printLogbook(){
 
         duration_hours = n.flight_duration / 3600;
         duration_minutes = ((int) n.flight_duration % 3600) / 60;
+        total_time += n.flight_duration;
+        sprintf(duration, "%d:%02d", duration_hours, duration_minutes);
 
-        std::cout << date << " | " <<  takeof << " | " << landing << " | ";
+        std::cout << std::left << "| "
+            << std::setw(11) << date << "| "
+            << std::setw(11) <<  takeof << "| "
+            << std::setw(11)  << landing << "| "
+            << std::right << std::setw(8) << duration << " |"
+            << std::endl;
+    }
 
-        printf("%d:%02d\n", duration_hours, duration_minutes);
+    if (print_totals){
+
+        int total_hours = total_time / 3600;
+        int total_minutes = ((int) total_time % 3600) / 60;
+
+        char total_duration[8];
+        sprintf(total_duration, "%d:%02d", total_hours, total_minutes);
+
+
+        std::cout << std::setfill('-') << std::left << "| "
+            << std::setw(11) << "Total:" << "| "
+            << std::setw(11) <<  '-' << "| "
+            << std::right << std::setw(11)  << '-' << "| "
+            << std::setw(8) << total_duration << " |"
+            << std::setfill(' ') << std::endl;
     }
 
 }
