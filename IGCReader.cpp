@@ -10,8 +10,6 @@ static std::tm parseTime(const std::string line){
     time.tm_min = (line[3] - '0')*10 + (line[4] - '0');
     time.tm_hour = (line[1] - '0')*10 + (line[2] - '0');
 
-    std::cout << time.tm_hour << ":" << time.tm_min << ":" << time.tm_sec << std::endl;
-
     return time;
 }
 
@@ -24,7 +22,7 @@ void IGCReader::readIGC(){
         std::ifstream igc_file(file_name);
 
         if (igc_file.is_open()){
-            std::cout << "Parsing: " << file_name << std::endl;
+            std::cerr << "Parsing: " << file_name << std::endl;
 
         } else {
             std::cerr << "Unable to open file: " << file_name << std::endl;
@@ -69,7 +67,6 @@ void IGCReader::readIGC(){
         igc_file.close();
 
         flight_data.landing_time = parseTime(time_line);
-        std::cout << date << std::endl;
 
         // Set date in takeoff_time and landing_time
         flight_data.takeoff_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
@@ -80,13 +77,13 @@ void IGCReader::readIGC(){
         flight_data.landing_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0');
         flight_data.landing_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
 
-        std::cout << asctime(&flight_data.takeoff_time);
-        std::cout << asctime(&flight_data.landing_time) << std::endl;
+        std::cerr << "Takeoff: " << asctime(&flight_data.takeoff_time);
+        std::cerr << "Landing: " << asctime(&flight_data.landing_time);
 
         // Calculate flight time
         flight_data.flight_duration = std::difftime(std::mktime(&flight_data.landing_time),
                                         std::mktime(&flight_data.takeoff_time));
 
 
-        std::cout << flight_data.flight_duration << std::endl;
+        std::cerr << "Duration: " << flight_data.flight_duration << " seconds" << std::endl;
 }
