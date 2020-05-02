@@ -60,7 +60,6 @@ FlightData IGCReader::readIGC(){
                     } else if(line.substr(2,3) == "PLT"){
                         // Line is a Pilot record
                         flight_data.pilot_name = line.substr(line.find(':')+1);
-                        std::cout << flight_data.pilot_name << std::endl;
                     }
 
                 }
