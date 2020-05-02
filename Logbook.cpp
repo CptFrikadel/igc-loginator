@@ -9,6 +9,7 @@ void Logbook::printLogbook(){
 
     std::cout << std::left << "| "
         << std::setw(11) << "Date" << "| "
+        << std::setw(20) << "Pilot" << "| "
         << std::setw(11) << "Takeoff" << "| "
         << std::setw(11) << "Landing" << "| "
         << std::setw(9) << "Duration" << "|"
@@ -38,10 +39,14 @@ void Logbook::printLogbook(){
 
         std::cout << std::left << "| "
             << std::setw(11) << date << "| "
+            << std::setw(20) << n.pilot_name << "| "
             << std::setw(11) <<  takeof << "| "
             << std::setw(11)  << landing << "| "
             << std::right << std::setw(8) << duration << " |"
             << std::endl;
+
+        std::cout << n.pilot_name << std::endl;
+
     }
 
     if (print_totals){

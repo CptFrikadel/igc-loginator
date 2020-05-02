@@ -1,5 +1,7 @@
 /*
     Class defenition for an IGC reader object
+
+    http://www.gliding.ch/images/news/lx20/fichiers_igc.htm#Hrec
 */
 
 #ifndef IGCREADER_HPP
