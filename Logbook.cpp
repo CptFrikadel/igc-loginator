@@ -8,14 +8,14 @@ void Logbook::printLogbook(){
 
 
     std::cout << std::left << "| "
-        << std::setw(11) << "Date" << "| "
-        << std::setw(20) << "Pilot" << "| "
+        << std::setw(12) << "Date" << "| "
         << std::setw(11) << "Takeoff" << "| "
         << std::setw(11) << "Landing" << "| "
-        << std::setw(9) << "Duration" << "|"
+        << std::setw(9) << "Duration" << "| "
+        << std::setw(20) << "Pilot"
         << std::endl;
 
-    std::cout <<  std::setfill('-') << std::setw(51) << "-" << std::endl << std::setfill(' ');
+    std::cout <<  std::setfill('-') << std::setw(74) << "-" << std::endl << std::setfill(' ');
 
     int total_time = 0;
 
@@ -38,14 +38,13 @@ void Logbook::printLogbook(){
         sprintf(duration, "%d:%02d", duration_hours, duration_minutes);
 
         std::cout << std::left << "| "
-            << std::setw(11) << date << "| "
-            << std::setw(20) << n.pilot_name << "| "
+            << std::setw(12) << date << "| "
             << std::setw(11) <<  takeof << "| "
             << std::setw(11)  << landing << "| "
-            << std::right << std::setw(8) << duration << " |"
+            << std::right << std::setw(8) << duration << " | "
+            << n.pilot_name
             << std::endl;
 
-        std::cout << n.pilot_name << std::endl;
 
     }
 
@@ -59,7 +58,7 @@ void Logbook::printLogbook(){
 
 
         std::cout << std::setfill('-') << std::left << "| "
-            << std::setw(11) << "Total:" << "| "
+            << std::setw(12) << "Total:" << "| "
             << std::setw(11) <<  '-' << "| "
             << std::right << std::setw(11)  << '-' << "| "
             << std::setw(8) << total_duration << " |"
