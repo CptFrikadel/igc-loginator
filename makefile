@@ -1,7 +1,5 @@
 CXX = g++
 
-CFLAGS = -g
-
 DEPS = Logbook.hpp IGCReader.hpp FlightData.hpp
 OBJ = Logbook.o IGCReader.o main.o
 
