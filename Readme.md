@@ -12,3 +12,11 @@ Cross compile for arm with:
 ```
 make CXX=arm-linux-gnueabihf-g++
 ```
+
+## ToDo:
+
+* Detect takeoff time from altitude change
+* Add pilot name
+* Add departure / arrival aerodrome
+* Save and export
+* Add notes
