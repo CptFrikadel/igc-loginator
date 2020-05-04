@@ -18,8 +18,9 @@ static void printHelp(){
                 << "    -nopilot                Don't print pilot name (DEFAULT)" << std::endl
                 << "    -totals -t              Print totals at the bottom of the table" << std::endl
                 << "    -nototals               Don't print a totals row" << std::endl
+                << "    --help -h               Print this help" << std::endl
                 << std::endl
-                << "[FILES] are printed in the order they are supplied." << std::endl
+                << "Flights table is printed in the order [FILES] are supplied." << std::endl
                 << std::endl << std::endl
                 << "K thx byee!"
                 << std::endl;
