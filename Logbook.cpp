@@ -11,11 +11,22 @@ void Logbook::printLogbook(){
         << std::setw(12) << "Date" << "| "
         << std::setw(11) << "Takeoff" << "| "
         << std::setw(11) << "Landing" << "| "
-        << std::setw(9) << "Duration" << "| "
-        << std::setw(20) << "Pilot"
-        << std::endl;
+        << std::setw(9) << "Duration" << "| ";
 
-    std::cout <<  std::setfill('-') << std::setw(74) << "-" << std::endl << std::setfill(' ');
+    if (print_pilot){
+        std::cout << std::setw(20) << "Pilot";
+    }
+
+    std::cout << std::endl;
+
+    std::cout <<  std::setfill('-');
+
+    if (print_pilot){
+        std::cout << std::setw(74);
+    } else {
+        std::cout << std::setw(52);
+    }
+    std::cout << "-" << std::endl << std::setfill(' ');
 
     int total_time = 0;
 
@@ -41,10 +52,13 @@ void Logbook::printLogbook(){
             << std::setw(12) << date << "| "
             << std::setw(11) <<  takeof << "| "
             << std::setw(11)  << landing << "| "
-            << std::right << std::setw(8) << duration << " | "
-            << n.pilot_name
-            << std::endl;
+            << std::right << std::setw(8) << duration << " | ";
 
+        if (print_pilot){
+            std::cout << n.pilot_name;
+        }
+
+        std::cout << std::endl;
 
     }
 
