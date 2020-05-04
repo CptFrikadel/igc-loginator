@@ -21,14 +21,16 @@ int main (int argc, char * argv[]){
     int i;
     for (i = 1; i < argc; i++){
         if (argv[i][0] == '-'){
-            std::cout << "WOLOLOLO" << std::endl;
-
             std::string flag(argv[i]);
 
             if (flag == "-pilot" || flag == "-p"){
                 logbook.setPrintPilot(true);
             } else if (flag == "-nopilot"){
                 logbook.setPrintPilot(false);
+            } else if (flag == "-totals" || flag == "-t"){
+                logbook.setPrintTotals(true);
+            } else if (flag == "-nototals"){
+                logbook.setPrintTotals(false);
             }
 
         } else {
