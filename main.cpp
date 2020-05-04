@@ -54,6 +54,9 @@ int main (int argc, char * argv[]){
             } else if (flag == "--help" || flag == "-h"){
                 printHelp();
                 return(0);
+            } else {
+                std::cout << "Unknown Option!" << std::endl;
+                return(-1);
             }
 
 
