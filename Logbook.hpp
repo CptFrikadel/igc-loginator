@@ -13,6 +13,7 @@ public:
 
     void printLogbook();
     void appendFlight(const FlightData flight);
+    void setPrintPilot(const bool opt){print_pilot = opt;}
 
 private:
     std::list<FlightData> flights;
