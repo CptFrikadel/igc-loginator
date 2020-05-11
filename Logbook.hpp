@@ -20,6 +20,7 @@ private:
     std::list<FlightData> flights;
     bool print_totals = true;
     bool print_pilot = false;
+    bool print_compact = true;
 
 };
 
