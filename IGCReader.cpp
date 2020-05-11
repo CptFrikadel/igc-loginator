@@ -21,10 +21,7 @@ FlightData IGCReader::readIGC(){
 
         std::ifstream igc_file(file_name);
 
-        if (igc_file.is_open()){
-            std::cerr << "Parsing: " << file_name << std::endl;
-
-        } else {
+        if (!igc_file.is_open()){
             std::cerr << "Unable to open file: " << file_name << std::endl;
             exit(-1);
         }
@@ -80,15 +77,9 @@ FlightData IGCReader::readIGC(){
         flight_data.landing_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0');
         flight_data.landing_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
 
-        std::cerr << "Takeoff: " << asctime(&flight_data.takeoff_time);
-        std::cerr << "Landing: " << asctime(&flight_data.landing_time);
-
         // Calculate flight time
         flight_data.flight_duration = std::difftime(std::mktime(&flight_data.landing_time),
                                         std::mktime(&flight_data.takeoff_time));
-
-
-        std::cerr << "Duration: " << flight_data.flight_duration << " seconds" << std::endl;
 
         return flight_data;
 }
