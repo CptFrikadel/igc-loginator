@@ -8,9 +8,10 @@ Simply run with a bunch of `.igc` files as argument.
 
 ## Cross Compiling
 
-Cross compile for arm with:
+Cross compile for arm with (staticly link libstdc++):
 ```
-make CXX=arm-linux-gnueabihf-g++
+make CXX=arm-linux-gnueabihf-g++ CFLAGS=-static-libstdc++
+
 ```
 
 ## ToDo:
