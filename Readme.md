@@ -4,7 +4,7 @@ Small utility to create a logbook from one or more igc files. Intended for use o
 
 ## Usage
 
-Simply run with a bunch of `.igc` files as argument.
+Simply run with a bunch of `.igc` files as argument. On OpenVario output is best viewed when piped into `less`.
 
 ## Cross Compiling
 
@@ -17,7 +17,7 @@ make CXX=arm-linux-gnueabihf-g++ CFLAGS=-static-libstdc++
 ## ToDo:
 
 * Detect takeoff time from altitude change
-* Add pilot name
+* ncurses user interface
 * Add departure / arrival aerodrome
 * Save and export
 * Add notes
