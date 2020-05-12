@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include <iomanip>
 
+#include "CursesTable.hpp"
 
-void Logbook::printLogbook(){
+void Logbook::printASCIILogbook(){
 
     unsigned int date_width = 12, time_width = 11;
     constexpr unsigned int duration_width = 5;
@@ -89,6 +90,21 @@ void Logbook::printLogbook(){
             << std::setfill(' ') << std::endl;
     }
 
+}
+
+void Logbook::printCursesLogbook(){
+
+    CursesTable table(3, 74);
+
+    std::vector<std::string> head = {"Date", "Takeoff", "Landing", "Time"};
+
+    table.setHead(head);
+
+}
+
+void Logbook::printLogbook(){
+
+    printCursesLogbook();
 }
 
 void Logbook::appendFlight(const FlightData &_flight){

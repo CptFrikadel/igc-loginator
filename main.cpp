@@ -83,7 +83,9 @@ int main (int argc, char * argv[]){
     // Parsing files might exit on error. Init ncurses only on succes
     initscr();
     cbreak();
+    curs_set(0);
 
+    logbook.printLogbook();
     getch();
 
     endwin();
