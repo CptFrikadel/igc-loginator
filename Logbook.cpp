@@ -91,7 +91,7 @@ void Logbook::printLogbook(){
 
 }
 
-void Logbook::appendFlight(const FlightData _flight){
+void Logbook::appendFlight(const FlightData &_flight){
 
     flights.push_back(_flight);
 

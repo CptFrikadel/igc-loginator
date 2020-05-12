@@ -12,7 +12,7 @@ class Logbook {
 public:
 
     void printLogbook();
-    void appendFlight(const FlightData flight);
+    void appendFlight(const FlightData &flight);
     void setPrintPilot(const bool opt){print_pilot = opt;}
     void setPrintTotals(const bool opt){print_totals = opt;}
 
