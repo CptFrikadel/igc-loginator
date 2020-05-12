@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <list>
+#include <curses.h>
 
 #include "IGCReader.hpp"
 #include "Logbook.hpp"
@@ -79,8 +80,12 @@ int main (int argc, char * argv[]){
     }
 
 
-    // Print result
-    logbook.printLogbook();
+    // Parsing files might exit on error. Init ncurses only on succes
+    initscr();
+    cbreak();
 
+    getch();
+
+    endwin();
     return 0;
 }
