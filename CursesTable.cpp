@@ -47,7 +47,27 @@ void CursesTable::redraw(){
 
 void CursesTable::drawHead(){
 
+    //Draw top border line
     move(0, 0);
+    for (int i = 0; i < COLS && i < table_width; i++){
+        addch(ACS_HLINE);
+    }
+
+    // Draw separators in top line
+    move(0,0);
+    addch(ACS_ULCORNER);
+
+    int pos = 0;
+    for (int i = 0; i < num_columns -1; i ++){
+        pos += col_sizes[i];
+        move(0, pos);
+        addch(ACS_TTEE);
+    }
+    move(0,table_width);
+    addch(ACS_URCORNER);
+
+    // Write the head entries
+    move(1, 0);
     addch(ACS_VLINE);
 
     for (int col = 0; col < num_columns; col++){
@@ -57,22 +77,23 @@ void CursesTable::drawHead(){
         addch(ACS_VLINE);
     }
 
-    move(1, 0);
+    // Draw line below
+    move(2, 0);
     for (int i = 0; i < COLS && i < table_width; i++){
         addch(ACS_HLINE);
     }
 
     // Draw separators
-    move(1,0);
+    move(2,0);
     addch(ACS_LTEE);
 
-    int pos = 0;
+    pos = 0;
     for (int i = 0; i < num_columns -1; i ++){
         pos += col_sizes[i];
-        move(1, pos);
+        move(2, pos);
         addch(ACS_PLUS);
     }
-    move(1,table_width);
+    move(2,table_width);
     addch(ACS_RTEE);
 
     refresh();
@@ -84,7 +105,7 @@ void CursesTable::drawRow(int row){
     int pos = 0;
     for (int col = 0; col < num_columns; col++){
 
-        move(row + 2, pos);
+        move(row + 3, pos);
         addch(ACS_VLINE);
         addch(' ');
         addstr(rows[row][col].c_str());
@@ -92,7 +113,7 @@ void CursesTable::drawRow(int row){
         pos += col_sizes[col];
     }
 
-    move(row + 2, table_width);
+    move(row + 3, table_width);
     addch(ACS_VLINE);
 
 }
