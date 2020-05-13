@@ -51,7 +51,7 @@ void CursesTable::redraw(){
 
     // Draw as many rows as fit
     int i;
-    for (i = scroll_pos; i < rows.size() && i < LINES - 4; i++){
+    for (i = scroll_pos; i < rows.size() && i - scroll_pos < LINES - 4; i++){
         drawRow(i);
     }
 
@@ -68,7 +68,7 @@ void CursesTable::redraw(){
         addch(ACS_DARROW);
     }
 
-
+    refresh();
 }
 
 void CursesTable::drawHead(){
