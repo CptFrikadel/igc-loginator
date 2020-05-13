@@ -3,7 +3,7 @@ CXX = g++
 DEPS = Logbook.hpp IGCReader.hpp FlightData.hpp CursesTable.hpp
 OBJ = Logbook.o IGCReader.o main.o CursesTable.o
 
-LIBS = -lcurses
+LIBS = -lncurses
 
 %.o: %.cpp $(DEPS)
 	$(CXX) -Wall -c -o $@ $< $(CFLAGS)
