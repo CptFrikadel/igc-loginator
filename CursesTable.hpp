@@ -19,8 +19,8 @@ private:
     void reDraw();
     void drawTable();
     void drawHead();
-    unsigned int num_columns;
-    unsigned int table_width;
+    int num_columns;
+    int table_width;
     std::vector<std::string> head;
     std::vector<std::string> rows;
     std::vector<int> col_sizes;
