@@ -116,7 +116,40 @@ void Logbook::printCursesLogbook(){
 
     std::vector<std::string> head = {"Date", "Takeoff", "Landing", "Time"};
 
+    if (print_pilot){
+        head.push_back("Pilot");
+    }
+
     table.setHead(head);
+
+    for (FlightData flight : flights){
+
+        std::vector<std::string> item;
+
+        // Build date string
+        std::stringstream date;
+        date << std::put_time(&flight.takeoff_time, date_format);
+        item.push_back(date.str());
+
+        // Build takeoff time
+        std::stringstream takeoff;
+        takeoff << std::put_time(&flight.takeoff_time, time_format);
+        item.push_back(takeoff.str());
+
+        // Build landing time string
+        std::stringstream landing;
+        landing << std::put_time(&flight.landing_time, time_format);
+        item.push_back(landing.str());
+
+        // Build Duration string
+        item.push_back(calcDuration(flight));
+
+
+        // Add to table
+        table.addRow(item);
+
+    }
+
 
 }
 
