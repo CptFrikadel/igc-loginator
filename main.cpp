@@ -82,6 +82,7 @@ int main (int argc, char * argv[]){
 
     // Parsing files might exit on error. Init ncurses only on succes
     initscr();
+    setlocale(LC_ALL, "");
     cbreak();
     curs_set(0);
 

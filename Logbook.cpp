@@ -94,7 +94,7 @@ void Logbook::printASCIILogbook(){
 
 void Logbook::printCursesLogbook(){
 
-    CursesTable table(3, 74);
+    CursesTable table;
 
     std::vector<std::string> head = {"Date", "Takeoff", "Landing", "Time"};
 
