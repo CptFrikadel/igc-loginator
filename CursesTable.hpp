@@ -19,6 +19,7 @@ private:
     void redraw();
     void drawRow(int row);
     void drawHead();
+    void drawBottomBorder(int row);
     int num_columns;
     int table_width;
     std::vector<std::string> head;

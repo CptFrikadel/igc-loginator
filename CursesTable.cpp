@@ -38,11 +38,14 @@ void CursesTable::addRow(const std::vector<std::string>& items){
 
 void CursesTable::redraw(){
 
+    erase();
     drawHead();
 
     for (unsigned int i = 0; i < rows.size(); i++){
         drawRow(i);
     }
+
+    drawBottomBorder(rows.size() + 3);
 }
 
 void CursesTable::drawHead(){
@@ -116,4 +119,26 @@ void CursesTable::drawRow(int row){
     move(row + 3, table_width);
     addch(ACS_VLINE);
 
+}
+
+void CursesTable::drawBottomBorder(int row){
+
+
+    move(row, 0);
+    for (int i = 0; i < COLS && i < table_width; i++){
+        addch(ACS_HLINE);
+    }
+
+    // Draw separators in top line
+    move(row,0);
+    addch(ACS_LLCORNER);
+
+    int pos = 0;
+    for (int i = 0; i < num_columns -1; i ++){
+        pos += col_sizes[i];
+        move(row, pos);
+        addch(ACS_BTEE);
+    }
+    move(row,table_width);
+    addch(ACS_LRCORNER);
 }
