@@ -162,11 +162,18 @@ void Logbook::printCursesLogbook(){
         case 27:
             quit = true;
             break;
+        case 'j':
+            table.scroll_lines(1);
+            break;
+        case 'k':
+            table.scroll_lines(-1);
+            break;
 
 
         }
 
     }
+
 }
 
 void Logbook::printLogbook(){

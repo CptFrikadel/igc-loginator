@@ -85,9 +85,10 @@ int main (int argc, char * argv[]){
     setlocale(LC_ALL, "");
     cbreak();
     curs_set(0);
+    noecho();
 
     logbook.printLogbook();
-    getch();
+
 
     endwin();
     return 0;

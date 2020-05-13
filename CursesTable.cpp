@@ -4,6 +4,7 @@
 #include <iostream>
 
 
+static constexpr int head_size = 3;
 
 
 void CursesTable::setHead(const std::vector<std::string>& head_items){
@@ -33,6 +34,12 @@ void CursesTable::addRow(const std::vector<std::string>& items){
     // TODO check number of columns
     rows.push_back(items);
 
+    // Check whether the table still fits on screen or if scrolling is necessary
+    if (rows.size() >= LINES - 4){
+        scrolling = true;
+    }
+
+
     redraw();
 }
 
@@ -41,11 +48,27 @@ void CursesTable::redraw(){
     erase();
     drawHead();
 
-    for (unsigned int i = 0; i < rows.size(); i++){
+
+    // Draw as many rows as fit
+    int i;
+    for (i = scroll_pos; i < rows.size() && i < LINES - 4; i++){
         drawRow(i);
     }
 
-    drawBottomBorder(rows.size() + 3);
+    if (scroll_pos > 0){
+        move(head_size, table_width + 1);
+        addch(ACS_UARROW);
+    }
+
+    // Check wether bottom is on screen or not
+    if (i == rows.size()){
+        drawBottomBorder(i + head_size - scroll_pos);
+    } else {
+        move(LINES - 1, table_width + 1);
+        addch(ACS_DARROW);
+    }
+
+
 }
 
 void CursesTable::drawHead(){
@@ -104,11 +127,12 @@ void CursesTable::drawHead(){
 
 void CursesTable::drawRow(int row){
 
+    int draw_row = row - scroll_pos + head_size;
 
     int pos = 0;
     for (int col = 0; col < num_columns; col++){
 
-        move(row + 3, pos);
+        move(draw_row, pos);
         addch(ACS_VLINE);
         addch(' ');
         addstr(rows[row][col].c_str());
@@ -116,7 +140,7 @@ void CursesTable::drawRow(int row){
         pos += col_sizes[col];
     }
 
-    move(row + 3, table_width);
+    move(draw_row, table_width);
     addch(ACS_VLINE);
 
 }
@@ -141,4 +165,20 @@ void CursesTable::drawBottomBorder(int row){
     }
     move(row,table_width);
     addch(ACS_LRCORNER);
+}
+
+
+void CursesTable::scroll_lines(int lines){
+
+    if (scroll_pos + lines <= 0){
+        scrolling = false;
+        scroll_pos = 0;
+    } else {
+
+        scroll_pos += lines;
+        scrolling = true;
+    }
+
+    redraw();
+
 }
