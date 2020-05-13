@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <iomanip>
 #include <sstream>
+#include <curses.h>
 
 #include "CursesTable.hpp"
 
@@ -151,6 +152,21 @@ void Logbook::printCursesLogbook(){
     }
 
 
+    bool quit = false;
+    while (!quit){
+
+        switch (getch()){
+        case 'q':
+            quit = true;
+            break;
+        case 27:
+            quit = true;
+            break;
+
+
+        }
+
+    }
 }
 
 void Logbook::printLogbook(){
