@@ -28,6 +28,23 @@ void CursesTable::setHead(const std::vector<std::string>& head_items){
     drawHead();
 }
 
+void CursesTable::addRow(const std::vector<std::string>& items){
+
+    // TODO check number of columns
+    rows.push_back(items);
+
+    redraw();
+}
+
+void CursesTable::redraw(){
+
+    drawHead();
+
+    for (unsigned int i = 0; i < rows.size(); i++){
+        drawRow(i);
+    }
+}
+
 void CursesTable::drawHead(){
 
     move(0, 0);
@@ -59,4 +76,23 @@ void CursesTable::drawHead(){
     addch(ACS_RTEE);
 
     refresh();
+}
+
+void CursesTable::drawRow(int row){
+
+
+    int pos = 0;
+    for (int col = 0; col < num_columns; col++){
+
+        move(row + 2, pos);
+        addch(ACS_VLINE);
+        addch(' ');
+        addstr(rows[row][col].c_str());
+        addch(' ');
+        pos += col_sizes[col];
+    }
+
+    move(row + 2, table_width);
+    addch(ACS_VLINE);
+
 }

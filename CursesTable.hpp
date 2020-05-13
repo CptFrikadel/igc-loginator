@@ -16,13 +16,13 @@ public:
     void setHead(const std::vector<std::string>& head_items);
 
 private:
-    void reDraw();
-    void drawTable();
+    void redraw();
+    void drawRow(int row);
     void drawHead();
     int num_columns;
     int table_width;
     std::vector<std::string> head;
-    std::vector<std::string> rows;
+    std::vector<std::vector<std::string>> rows;
     std::vector<int> col_sizes;
 
 };
