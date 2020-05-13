@@ -31,17 +31,32 @@ void CursesTable::setHead(const std::vector<std::string>& head_items){
 void CursesTable::drawHead(){
 
     move(0, 0);
+    addch(ACS_VLINE);
 
     for (unsigned int col = 0; col < num_columns; col++){
+        addch(' ');
         addstr(head[col].c_str());
-        addstr(" ");
+        addch(' ');
         addch(ACS_VLINE);
     }
 
     move(1, 0);
-    for (unsigned int i = 0; i < width || i < table_width; i++){
-        addch(ACS_S1);
+    for (unsigned int i = 0; i < COLS && i < table_width; i++){
+        addch(ACS_HLINE);
     }
+
+    // Draw separators
+    move(1,0);
+    addch(ACS_LTEE);
+
+    int pos = 0;
+    for (int i = 0; i < num_columns -1; i ++){
+        pos += col_sizes[i];
+        move(1, pos);
+        addch(ACS_PLUS);
+    }
+    move(1,table_width);
+    addch(ACS_RTEE);
 
     refresh();
 }
