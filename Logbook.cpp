@@ -2,8 +2,26 @@
 #include <iostream>
 #include <stdio.h>
 #include <iomanip>
+#include <sstream>
 
 #include "CursesTable.hpp"
+
+static constexpr char date_format[] = "%d-%m";
+static constexpr char time_format[] = "%H:%M";
+
+static std::string calcDuration(const FlightData& flight){
+
+    std::stringstream duration;
+
+    int duration_minutes, duration_hours;
+
+    duration_hours = flight.flight_duration / 3600;
+    duration_minutes = ((int) flight.flight_duration % 3600) / 60;
+    duration << std::setw(2) << duration_hours << ":" << std::setfill('0')
+    << std::setw(2) << duration_minutes;
+
+    return duration.str();
+}
 
 void Logbook::printASCIILogbook(){
 
