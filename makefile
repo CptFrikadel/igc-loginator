@@ -13,4 +13,4 @@ logbook: $(OBJ)
 
 .PHONY : clean
 clean :
-        -rm logbook $(OBJ)
+	-rm logbook $(OBJ)
