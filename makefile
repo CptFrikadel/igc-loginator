@@ -11,5 +11,6 @@ LIBS = -lncurses
 logbook: $(OBJ)
 	$(CXX) -Wall -o $@ $^ $(CFLAGS) $(LIBS)
 
-clean:
-	rm *.o
+.PHONY : clean
+clean :
+        -rm logbook $(OBJ)
