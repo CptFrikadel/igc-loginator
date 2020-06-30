@@ -22,7 +22,6 @@ private:
     bool print_pilot = false;
     bool print_compact = true;
 
-    void printASCIILogbook();
     void printCursesLogbook();
 };
 
