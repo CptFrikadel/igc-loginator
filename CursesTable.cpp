@@ -170,15 +170,16 @@ void CursesTable::drawBottomBorder(int row){
 
 void CursesTable::scroll_lines(int lines){
 
+	if (!scrolling){
+		return;
+	}
+
     if (scroll_pos + lines <= 0){
-        scrolling = false;
         scroll_pos = 0;
     } else if (scroll_pos + lines >= rows.size() - (LINES - head_size) + 1){
         scroll_pos = rows.size() - LINES + head_size +1;
     } else {
-
         scroll_pos += lines;
-        scrolling = true;
     }
 
     redraw();
