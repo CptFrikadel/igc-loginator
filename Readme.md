@@ -4,7 +4,7 @@ Small utility to create a logbook from one or more igc files. Intended for use o
 
 ## Usage
 
-Simply run with a bunch of `.igc` files as argument. On OpenVario output is best viewed when piped into `less`.
+Simply run with a bunch of `.igc` files as argument. 
 
 ## Cross Compiling
 
@@ -13,7 +13,6 @@ Cross compiling for OpenVario: use bitbake recipe my fork of meta-openvario.
 ## ToDo:
 
 * Detect takeoff time from altitude change
-* ncurses user interface
 * Add departure / arrival aerodrome
 * Save and export
 * Add notes
