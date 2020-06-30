@@ -6,6 +6,23 @@
 
 static constexpr int head_size = 3;
 
+void CursesTable::adjustColumnsToFill(){
+
+	// Adjust column sizes to fill the screen width
+	int excess_cols = COLS - table_width;
+	int col_adjust = excess_cols / col_sizes.size();
+	int final_adjust = excess_cols % col_sizes.size();
+
+	for (int i = 0; i < col_sizes.size(); i++){
+
+		col_sizes[i] += col_adjust;
+	}
+
+	col_sizes.back() += final_adjust;
+
+	table_width = COLS - 2;
+}
+
 
 void CursesTable::setHead(const std::vector<std::string>& head_items){
 
@@ -25,6 +42,8 @@ void CursesTable::setHead(const std::vector<std::string>& head_items){
         table_width += col_sizes[col];
 
     }
+
+	adjustColumnsToFill();
 
     drawHead();
 }
@@ -93,15 +112,19 @@ void CursesTable::drawHead(){
     addch(ACS_URCORNER);
 
     // Write the head entries
-    move(1, 0);
-    addch(ACS_VLINE);
 
+	pos = 0;
     for (int col = 0; col < num_columns; col++){
+		move(1, pos);
+		addch(ACS_VLINE);
         addch(' ');
         addstr(head[col].c_str());
         addch(' ');
-        addch(ACS_VLINE);
+		pos += col_sizes[col];
     }
+
+	move(1, table_width);
+	addch(ACS_VLINE);
 
     // Draw line below
     move(2, 0);

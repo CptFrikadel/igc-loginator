@@ -21,6 +21,7 @@ private:
     void drawRow(int row);
     void drawHead();
     void drawBottomBorder(int row);
+	void adjustColumnsToFill();
     int num_columns;
     int table_width;
     std::vector<std::string> head;
