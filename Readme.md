@@ -8,7 +8,7 @@ Simply run with a bunch of `.igc` files as argument.
 
 ## Cross Compiling
 
-Cross compiling for OpenVario: use bitbake recipe my fork of meta-openvario.
+Easiest way to cross compile for OpenVario is to use the bitbake toolchain found in `meta-openvario`.
 
 ## ToDo:
 
