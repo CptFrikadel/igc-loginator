@@ -79,9 +79,15 @@ void Logbook::printCursesLogbook(){
         case 'j':
             table.scroll_lines(1);
             break;
+		case KEY_DOWN:
+			table.scroll_lines(1);
+			break;
         case 'k':
             table.scroll_lines(-1);
             break;
+		case KEY_UP:
+			table.scroll_lines(-1);
+			break;
 
 
         }

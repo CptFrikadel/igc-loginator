@@ -86,6 +86,7 @@ int main (int argc, char * argv[]){
     cbreak();
     curs_set(0);
     noecho();
+	keypad(stdscr, true);
 
     logbook.printLogbook();
 
