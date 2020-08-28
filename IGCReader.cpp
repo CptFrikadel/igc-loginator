@@ -70,11 +70,11 @@ FlightData IGCReader::readIGC(){
 
         // Set date in takeoff_time and landing_time
         flight_data.takeoff_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
-        flight_data.takeoff_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0');
+        flight_data.takeoff_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0') - 1;
         flight_data.takeoff_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
 
         flight_data.landing_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
-        flight_data.landing_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0');
+        flight_data.landing_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0') - 1;
         flight_data.landing_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
 
         // Calculate flight time
