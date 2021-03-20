@@ -1,5 +1,8 @@
+#include <cctype>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+
 #include "IGCReader.hpp"
 
 static std::tm parseTime(const std::string line){
@@ -11,6 +14,14 @@ static std::tm parseTime(const std::string line){
     time.tm_hour = (line[1] - '0')*10 + (line[2] - '0');
 
     return time;
+}
+
+static inline void rtrim(std::string &s){
+
+	s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch){
+				return !std::isspace(ch);
+	}).base(), s.end());
+
 }
 
 IGCReader::IGCReader(const std::string _file): file_name(_file){
@@ -57,6 +68,7 @@ FlightData IGCReader::readIGC(){
                     } else if(line.substr(2,3) == "PLT"){
                         // Line is a Pilot record
                         flight_data.pilot_name = line.substr(line.find(':')+1);
+						rtrim(flight_data.pilot_name);
                     }
 
                 }

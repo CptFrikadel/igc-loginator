@@ -59,6 +59,10 @@ void Logbook::printCursesLogbook(){
         // Build Duration string
         item.push_back(calcDuration(flight));
 
+		// Build pilot string
+		if(print_pilot)
+			item.push_back(flight.pilot_name.c_str());
+
 
         // Add to table
         table.addRow(item);
