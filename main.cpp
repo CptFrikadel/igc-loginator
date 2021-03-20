@@ -16,8 +16,6 @@ static void printHelp(){
                 << "Where [FLAGS] can be one or more of:" << std::endl
                 << std::endl
                 << "    -pilot -p               Print pilot name" << std::endl
-                << "    -nopilot                Don't print pilot name (DEFAULT)" << std::endl
-                << "    -totals -t              Print totals at the bottom of the table" << std::endl
                 << "    -nototals               Don't print a totals row" << std::endl
                 << "    --help -h               Print this help" << std::endl
                 << std::endl
@@ -47,10 +45,6 @@ int main (int argc, char * argv[]){
 
             if (flag == "-pilot" || flag == "-p"){
                 logbook.setPrintPilot(true);
-            } else if (flag == "-nopilot"){
-                logbook.setPrintPilot(false);
-            } else if (flag == "-totals" || flag == "-t"){
-                logbook.setPrintTotals(true);
             } else if (flag == "-nototals"){
                 logbook.setPrintTotals(false);
             } else if (flag == "--help" || flag == "-h"){
