@@ -5,6 +5,11 @@ OBJ = Logbook.o IGCReader.o main.o CursesTable.o
 
 LIBS = -lncurses
 
+all: logbook
+
+debug: CXXFLAGS += -g
+debug: logbook
+
 %.o: %.cpp $(DEPS)
 	$(CXX) -Wall -c -o $@ $< $(CXXFLAGS)
 
