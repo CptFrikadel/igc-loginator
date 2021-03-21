@@ -8,19 +8,19 @@ static constexpr int head_size = 3;
 
 void CursesTable::adjustColumnsToFill(){
 
-	// Adjust column sizes to fill the screen width
-	int excess_cols = COLS - table_width;
-	int col_adjust = excess_cols / col_sizes.size();
-	int final_adjust = excess_cols % col_sizes.size();
+    // Adjust column sizes to fill the screen width
+    int excess_cols = COLS - table_width;
+    int col_adjust = excess_cols / col_sizes.size();
+    int final_adjust = excess_cols % col_sizes.size();
 
-	for (int i = 0; i < col_sizes.size(); i++){
+    for (int i = 0; i < col_sizes.size(); i++){
 
-		col_sizes[i] += col_adjust;
-	}
+        col_sizes[i] += col_adjust;
+    }
 
-	col_sizes.back() += final_adjust;
+    col_sizes.back() += final_adjust;
 
-	table_width = COLS - 2;
+    table_width = COLS - 2;
 }
 
 
@@ -43,7 +43,7 @@ void CursesTable::setHead(const std::vector<std::string>& head_items){
 
     }
 
-	adjustColumnsToFill();
+    adjustColumnsToFill();
 
     drawHead();
 }
@@ -113,18 +113,18 @@ void CursesTable::drawHead(){
 
     // Write the head entries
 
-	pos = 0;
+    pos = 0;
     for (int col = 0; col < num_columns; col++){
-		move(1, pos);
-		addch(ACS_VLINE);
+        move(1, pos);
+        addch(ACS_VLINE);
         addch(' ');
         addstr(head[col].c_str());
         addch(' ');
-		pos += col_sizes[col];
+        pos += col_sizes[col];
     }
 
-	move(1, table_width);
-	addch(ACS_VLINE);
+    move(1, table_width);
+    addch(ACS_VLINE);
 
     // Draw line below
     move(2, 0);
@@ -193,9 +193,9 @@ void CursesTable::drawBottomBorder(int row){
 
 void CursesTable::scroll_lines(int lines){
 
-	if (!scrolling){
-		return;
-	}
+    if (!scrolling){
+        return;
+    }
 
     if (scroll_pos + lines <= 0){
         scroll_pos = 0;

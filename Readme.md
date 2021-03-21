@@ -4,7 +4,7 @@ Small utility to create a logbook from one or more igc files. Intended for use o
 
 ## Usage
 
-Simply run with a bunch of `.igc` files as argument. 
+Simply run with a bunch of `.igc` files as argument.
 
 ## Cross Compiling
 

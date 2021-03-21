@@ -1,5 +1,6 @@
+
 /*
-    Class definition for the ncurses style logbook table
+Class definition for the ncurses style logbook table
 */
 
 #ifndef CURSESTABLE_HPP
@@ -11,24 +12,24 @@
 
 class CursesTable {
 
-public:
-    void addRow(const std::vector<std::string>& items);
-    void setHead(const std::vector<std::string>& head_items);
-    void scroll_lines(int lines);
+    public:
+	void addRow(const std::vector<std::string>& items);
+	void setHead(const std::vector<std::string>& head_items);
+	void scroll_lines(int lines);
 
-private:
-    void redraw();
-    void drawRow(int row);
-    void drawHead();
-    void drawBottomBorder(int row);
+    private:
+	void redraw();
+	void drawRow(int row);
+	void drawHead();
+	void drawBottomBorder(int row);
 	void adjustColumnsToFill();
-    int num_columns;
-    int table_width;
-    std::vector<std::string> head;
-    std::vector<std::vector<std::string>> rows;
-    std::vector<int> col_sizes;
-    bool scrolling = false;
-    int scroll_pos = 0;
+	int num_columns;
+	int table_width;
+	std::vector<std::string> head;
+	std::vector<std::vector<std::string>> rows;
+	std::vector<int> col_sizes;
+	bool scrolling = false;
+	int scroll_pos = 0;
 
 };
 
