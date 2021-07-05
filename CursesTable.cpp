@@ -63,7 +63,7 @@ void CursesTable::addRow(const std::vector<std::string>& items){
 
 void CursesTable::redraw(){
 
-    erase();
+    werase(win);
     drawHead();
 
 
@@ -74,16 +74,16 @@ void CursesTable::redraw(){
     }
 
     if (scroll_pos > 0){
-        move(head_size, table_width + 1);
-        addch(ACS_UARROW);
+        wmove(win, head_size, table_width + 1);
+        waddch(win, ACS_UARROW);
     }
 
     // Check wether bottom is on screen or not
     if (i == rows.size()){
         drawBottomBorder(i + head_size - scroll_pos);
     } else {
-        move(max_y - 1, table_width + 1);
-        addch(ACS_DARROW);
+        wmove(win, max_y - 1, table_width + 1);
+        waddch(win, ACS_DARROW);
     }
 
     wrefresh(win);
