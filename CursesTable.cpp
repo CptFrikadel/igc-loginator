@@ -3,13 +3,12 @@
 #include <curses.h>
 #include <iostream>
 
-
 static constexpr int head_size = 3;
 
 void CursesTable::adjustColumnsToFill(){
 
     // Adjust column sizes to fill the screen width
-    int excess_cols = COLS - table_width;
+    int excess_cols = max_x - table_width;
     int col_adjust = excess_cols / col_sizes.size();
     int final_adjust = excess_cols % col_sizes.size();
 
@@ -20,7 +19,7 @@ void CursesTable::adjustColumnsToFill(){
 
     col_sizes.back() += final_adjust;
 
-    table_width = COLS - 2;
+    table_width = max_x - 2;
 }
 
 
@@ -54,7 +53,7 @@ void CursesTable::addRow(const std::vector<std::string>& items){
     rows.push_back(items);
 
     // Check whether the table still fits on screen or if scrolling is necessary
-    if (rows.size() >= LINES - 4){
+    if (rows.size() >= max_y - 4){
         scrolling = true;
     }
 
@@ -70,7 +69,7 @@ void CursesTable::redraw(){
 
     // Draw as many rows as fit
     int i;
-    for (i = scroll_pos; i < rows.size() && i - scroll_pos < LINES - 4; i++){
+    for (i = scroll_pos; i < rows.size() && i - scroll_pos < max_y - 4; i++){
         drawRow(i);
     }
 
@@ -83,18 +82,18 @@ void CursesTable::redraw(){
     if (i == rows.size()){
         drawBottomBorder(i + head_size - scroll_pos);
     } else {
-        move(LINES - 1, table_width + 1);
+        move(max_y - 1, table_width + 1);
         addch(ACS_DARROW);
     }
 
-    refresh();
+    wrefresh(win);
 }
 
 void CursesTable::drawHead(){
 
     //Draw top border line
     wmove(win, 0, 0);
-    for (int i = 0; i < COLS && i < table_width; i++){
+    for (int i = 0; i < max_x && i < table_width; i++){
         waddch(win, ACS_HLINE);
     }
 
@@ -128,7 +127,7 @@ void CursesTable::drawHead(){
 
     // Draw line below
     wmove(win, 2, 0);
-    for (int i = 0; i < COLS && i < table_width; i++){
+    for (int i = 0; i < max_x && i < table_width; i++){
         waddch(win, ACS_HLINE);
     }
 
@@ -172,7 +171,7 @@ void CursesTable::drawBottomBorder(int row){
 
 
     wmove(win, row, 0);
-    for (int i = 0; i < COLS && i < table_width; i++){
+    for (int i = 0; i < max_x && i < table_width; i++){
         waddch(win, ACS_HLINE);
     }
 
@@ -199,8 +198,8 @@ void CursesTable::scroll_lines(int lines){
 
     if (scroll_pos + lines <= 0){
         scroll_pos = 0;
-    } else if (scroll_pos + lines >= rows.size() - (LINES - head_size) + 1){
-        scroll_pos = rows.size() - LINES + head_size +1;
+    } else if (scroll_pos + lines >= rows.size() - (max_y - head_size) + 1){
+        scroll_pos = rows.size() - max_y + head_size +1;
     } else {
         scroll_pos += lines;
     }
