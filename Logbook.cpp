@@ -69,35 +69,6 @@ void Logbook::printCursesLogbook(WINDOW * win){
 
     }
 
-
-    bool quit = false;
-    while (!quit){
-
-        switch (getch()){
-            case 'q':
-                quit = true;
-                break;
-            case 27:
-                quit = true;
-                break;
-            case 'j':
-                table.scroll_lines(1);
-                break;
-            case KEY_DOWN:
-                table.scroll_lines(1);
-                break;
-            case 'k':
-                table.scroll_lines(-1);
-                break;
-            case KEY_UP:
-                table.scroll_lines(-1);
-                break;
-
-
-        }
-
-    }
-
 }
 
 void Logbook::printLogbook(WINDOW * win){

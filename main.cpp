@@ -82,7 +82,38 @@ int main (int argc, char * argv[]){
     noecho();
     keypad(stdscr, true);
 
-    logbook.printLogbook(stdscr);
+    WINDOW *table = newwin(20, COLS, 0, 0);
+    WINDOW *details = newwin(20, COLS, 21, 0);
+
+    box(details, 0, 0);
+
+    logbook.printLogbook(table);
+
+    bool quit = false;
+    while (!quit){
+
+        switch (wgetch(table)){
+            case 'q':
+                quit = true;
+                break;
+            case 27:
+                quit = true;
+                break;
+            //case 'j':
+            //    table.scroll_lines(1);
+            //    break;
+            //case KEY_DOWN:
+            //    table.scroll_lines(1);
+            //    break;
+            //case 'k':
+            //    table.scroll_lines(-1);
+            //    break;
+            //case KEY_UP:
+            //    table.scroll_lines(-1);
+            //    break;
+        }
+    }
+
 
 
     endwin();
