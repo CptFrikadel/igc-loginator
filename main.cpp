@@ -5,6 +5,7 @@
 
 #include "IGCReader.hpp"
 #include "Logbook.hpp"
+#include "CursesTable.hpp"
 
 static void printHelp(){
 
@@ -82,35 +83,37 @@ int main (int argc, char * argv[]){
     noecho();
     keypad(stdscr, true);
 
-    WINDOW *table = newwin(20, COLS, 0, 0);
-    WINDOW *details = newwin(20, COLS, 21, 0);
+    WINDOW *table_window = newwin(20, COLS, 0, 0);
+    WINDOW *details = newwin(20, COLS -1, 21, 0);
 
     box(details, 0, 0);
+    wrefresh(details);
 
-    logbook.printLogbook(table);
+    CursesTable table(table_window);
+    logbook.printCursesLogbook(table);
 
     bool quit = false;
     while (!quit){
 
-        switch (wgetch(table)){
+        switch (wgetch(table_window)){
             case 'q':
                 quit = true;
                 break;
             case 27:
                 quit = true;
                 break;
-            //case 'j':
-            //    table.scroll_lines(1);
-            //    break;
-            //case KEY_DOWN:
-            //    table.scroll_lines(1);
-            //    break;
-            //case 'k':
-            //    table.scroll_lines(-1);
-            //    break;
-            //case KEY_UP:
-            //    table.scroll_lines(-1);
-            //    break;
+            case 'j':
+                table.scroll_lines(1);
+                break;
+            case KEY_DOWN:
+                table.scroll_lines(1);
+                break;
+            case 'k':
+                table.scroll_lines(-1);
+                break;
+            case KEY_UP:
+                table.scroll_lines(-1);
+                break;
         }
     }
 

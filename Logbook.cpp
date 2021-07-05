@@ -25,9 +25,7 @@ static std::string calcDuration(const FlightData& flight){
 }
 
 
-void Logbook::printCursesLogbook(WINDOW * win){
-
-    CursesTable table(win);
+void Logbook::printCursesLogbook(CursesTable& table){
 
     std::vector<std::string> head = {"Date", "Takeoff", "Landing", "Time"};
 
@@ -73,7 +71,7 @@ void Logbook::printCursesLogbook(WINDOW * win){
 
 void Logbook::printLogbook(WINDOW * win){
 
-    printCursesLogbook(win);
+    //printCursesLogbook(win);
 }
 
 void Logbook::appendFlight(const FlightData &_flight){
