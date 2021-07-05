@@ -93,59 +93,59 @@ void CursesTable::redraw(){
 void CursesTable::drawHead(){
 
     //Draw top border line
-    move(0, 0);
+    wmove(win, 0, 0);
     for (int i = 0; i < COLS && i < table_width; i++){
-        addch(ACS_HLINE);
+        waddch(win, ACS_HLINE);
     }
 
     // Draw separators in top line
-    move(0,0);
-    addch(ACS_ULCORNER);
+    wmove(win, 0,0);
+    waddch(win, ACS_ULCORNER);
 
     int pos = 0;
     for (int i = 0; i < num_columns -1; i ++){
         pos += col_sizes[i];
-        move(0, pos);
-        addch(ACS_TTEE);
+        wmove(win, 0, pos);
+        waddch(win, ACS_TTEE);
     }
-    move(0,table_width);
-    addch(ACS_URCORNER);
+    wmove(win, 0,table_width);
+    waddch(win, ACS_URCORNER);
 
     // Write the head entries
 
     pos = 0;
     for (int col = 0; col < num_columns; col++){
-        move(1, pos);
-        addch(ACS_VLINE);
-        addch(' ');
-        addstr(head[col].c_str());
-        addch(' ');
+        wmove(win, 1, pos);
+        waddch(win, ACS_VLINE);
+        waddch(win, ' ');
+        waddstr(win, head[col].c_str());
+        waddch(win, ' ');
         pos += col_sizes[col];
     }
 
-    move(1, table_width);
-    addch(ACS_VLINE);
+    wmove(win, 1, table_width);
+    waddch(win, ACS_VLINE);
 
     // Draw line below
-    move(2, 0);
+    wmove(win, 2, 0);
     for (int i = 0; i < COLS && i < table_width; i++){
-        addch(ACS_HLINE);
+        waddch(win, ACS_HLINE);
     }
 
     // Draw separators
-    move(2,0);
-    addch(ACS_LTEE);
+    wmove(win, 2,0);
+    waddch(win, ACS_LTEE);
 
     pos = 0;
     for (int i = 0; i < num_columns -1; i ++){
         pos += col_sizes[i];
-        move(2, pos);
-        addch(ACS_PLUS);
+        wmove(win, 2, pos);
+        waddch(win, ACS_PLUS);
     }
-    move(2,table_width);
-    addch(ACS_RTEE);
+    wmove(win, 2,table_width);
+    waddch(win, ACS_RTEE);
 
-    refresh();
+    wrefresh(win);
 }
 
 void CursesTable::drawRow(int row){
@@ -155,39 +155,39 @@ void CursesTable::drawRow(int row){
     int pos = 0;
     for (int col = 0; col < num_columns; col++){
 
-        move(draw_row, pos);
-        addch(ACS_VLINE);
-        addch(' ');
-        addstr(rows[row][col].c_str());
-        addch(' ');
+        wmove(win, draw_row, pos);
+        waddch(win, ACS_VLINE);
+        waddch(win, ' ');
+        waddstr(win, rows[row][col].c_str());
+        waddch(win, ' ');
         pos += col_sizes[col];
     }
 
-    move(draw_row, table_width);
-    addch(ACS_VLINE);
+    wmove(win, draw_row, table_width);
+    waddch(win, ACS_VLINE);
 
 }
 
 void CursesTable::drawBottomBorder(int row){
 
 
-    move(row, 0);
+    wmove(win, row, 0);
     for (int i = 0; i < COLS && i < table_width; i++){
-        addch(ACS_HLINE);
+        waddch(win, ACS_HLINE);
     }
 
     // Draw separators in top line
-    move(row,0);
-    addch(ACS_LLCORNER);
+    wmove(win, row,0);
+    waddch(win, ACS_LLCORNER);
 
     int pos = 0;
     for (int i = 0; i < num_columns -1; i ++){
         pos += col_sizes[i];
-        move(row, pos);
-        addch(ACS_BTEE);
+        wmove(win, row, pos);
+        waddch(win, ACS_BTEE);
     }
-    move(row,table_width);
-    addch(ACS_LRCORNER);
+    wmove(win, row,table_width);
+    waddch(win, ACS_LRCORNER);
 }
 
 

@@ -9,15 +9,21 @@ Class definition for the ncurses style logbook table
 #include <vector>
 #include <string>
 #include <tuple>
+#include <curses.h>
 
 class CursesTable {
 
     public:
+	CursesTable(WINDOW *_win) :
+	    win(_win)
+	{}
+
 	void addRow(const std::vector<std::string>& items);
 	void setHead(const std::vector<std::string>& head_items);
 	void scroll_lines(int lines);
 
     private:
+	WINDOW * win;
 	void redraw();
 	void drawRow(int row);
 	void drawHead();

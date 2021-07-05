@@ -82,7 +82,7 @@ int main (int argc, char * argv[]){
     noecho();
     keypad(stdscr, true);
 
-    logbook.printLogbook();
+    logbook.printLogbook(stdscr);
 
 
     endwin();

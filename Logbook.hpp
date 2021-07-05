@@ -5,13 +5,14 @@
 #define LOGBOOK_HPP
 
 #include <list>
+#include <curses.h>
 #include "FlightData.hpp"
 
 class Logbook {
 
 public:
 
-    void printLogbook();
+    void printLogbook(WINDOW * win);
     void appendFlight(const FlightData &flight);
     void setPrintPilot(const bool opt){print_pilot = opt;}
     void setPrintTotals(const bool opt){print_totals = opt;}
@@ -22,7 +23,7 @@ private:
     bool print_pilot = false;
     bool print_compact = true;
 
-    void printCursesLogbook();
+    void printCursesLogbook(WINDOW * win);
 };
 
 #endif
