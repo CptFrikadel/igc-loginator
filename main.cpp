@@ -6,6 +6,7 @@
 #include "IGCReader.hpp"
 #include "Logbook.hpp"
 #include "CursesTable.hpp"
+#include "DetailsWindow.hpp"
 
 static void printHelp(){
 
@@ -86,14 +87,15 @@ int main (int argc, char * argv[]){
     WINDOW *table_window = newwin(20, COLS, 0, 0);
     WINDOW *details = newwin(20, COLS -1, 21, 0);
 
-    box(details, 0, 0);
-    wrefresh(details);
-
     CursesTable table(table_window);
+    DetailsWindow detais_window(details);
     logbook.printCursesLogbook(table);
 
     bool quit = false;
     while (!quit){
+
+        // Update details window.
+        detais_window.Update();
 
         switch (wgetch(table_window)){
             case 'q':

@@ -1,7 +1,7 @@
 
 
-DEPS = Logbook.hpp IGCReader.hpp FlightData.hpp CursesTable.hpp
-OBJ = Logbook.o IGCReader.o main.o CursesTable.o
+DEPS = Logbook.hpp IGCReader.hpp FlightData.hpp CursesTable.hpp DetailsWindow.hpp
+OBJ = Logbook.o IGCReader.o main.o CursesTable.o DetailsWindow.o
 
 LIBS = -lncurses
 
