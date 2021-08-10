@@ -7,7 +7,7 @@
 
 #include "CursesTable.hpp"
 
-static constexpr char date_format[] = "%d-%m";
+static constexpr char date_format[] = "%d-%m-'%y";
 static constexpr char time_format[] = "%H:%M";
 
 static std::string calcDuration(const FlightData& flight){
