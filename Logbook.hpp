@@ -18,6 +18,7 @@ public:
 
 private:
     std::list<FlightData> flights;
+    double total_duration = 0;
     bool print_totals = true;
     bool print_pilot = false;
     bool print_compact = true;

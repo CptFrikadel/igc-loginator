@@ -10,14 +10,14 @@
 static constexpr char date_format[] = "%d-%m";
 static constexpr char time_format[] = "%H:%M";
 
-static std::string calcDuration(const FlightData& flight){
+static std::string calcDuration(double flighttimeseconds){
 
     std::stringstream duration;
 
     int duration_minutes, duration_hours;
 
-    duration_hours = flight.flight_duration / 3600;
-    duration_minutes = ((int) flight.flight_duration % 3600) / 60;
+    duration_hours = flighttimeseconds / 3600;
+    duration_minutes = ((int) flighttimeseconds % 3600) / 60;
     duration << std::setw(2) << duration_hours << ":" << std::setfill('0')
         << std::setw(2) << duration_minutes;
 
@@ -57,7 +57,7 @@ void Logbook::printCursesLogbook(){
         item.push_back(landing.str());
 
         // Build Duration string
-        item.push_back(calcDuration(flight));
+        item.push_back(calcDuration(flight.flight_duration));
 
         // Build pilot string
         if(print_pilot)
@@ -69,6 +69,18 @@ void Logbook::printCursesLogbook(){
 
     }
 
+    if (print_totals){
+        std::vector<std::string> total_row;
+        total_row.push_back("-----"); //Date
+        total_row.push_back("-----"); // Takeoff time
+        total_row.push_back("Total"); // Landing time
+        total_row.push_back(calcDuration(total_duration)); // Duration
+
+        if (print_pilot)
+            total_row.push_back(""); // pilot
+
+        table.addRow(total_row);
+    }
 
     bool quit = false;
     while (!quit){
@@ -106,6 +118,8 @@ void Logbook::printLogbook(){
 }
 
 void Logbook::appendFlight(const FlightData &_flight){
+
+    total_duration += _flight.flight_duration;
 
     flights.push_back(_flight);
 
