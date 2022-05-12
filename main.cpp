@@ -17,6 +17,7 @@ static void printHelp(){
                 << std::endl
                 << "    -pilot -p               Print pilot name" << std::endl
                 << "    -nototals               Don't print a totals row" << std::endl
+                << "    -onlytotal              Only print totalized values" << std::endl
                 << "    --help -h               Print this help" << std::endl
                 << std::endl
                 << "Flights table is printed in the order [FILES] are supplied." << std::endl
@@ -27,7 +28,6 @@ static void printHelp(){
 
 int main (int argc, char * argv[]){
 
-    std::cout << "Yo Whaddup!" << std::endl;
 
     // check arguments
     if (argc < 2){
@@ -36,6 +36,7 @@ int main (int argc, char * argv[]){
     }
 
     Logbook logbook;
+    bool onlytotal = false;
 
     // Parse flags
     int i;
@@ -47,6 +48,8 @@ int main (int argc, char * argv[]){
                 logbook.setPrintPilot(true);
             } else if (flag == "-nototals"){
                 logbook.setPrintTotals(false);
+            } else if (flag == "-onlytotal"){
+               onlytotal = true;
             } else if (flag == "--help" || flag == "-h"){
                 printHelp();
                 return(0);
@@ -73,6 +76,13 @@ int main (int argc, char * argv[]){
 
     }
 
+    if (onlytotal){
+        // Only the totals are required, so don't print a table
+        std::cout << logbook.getTotalFlights() << " Flights, " << logbook.getTotalDuration() << " total duration" << std::endl;
+        return 0;
+    }
+
+    std::cout << "Yo Whaddup!" << std::endl;
 
     // Parsing files might exit on error. Init ncurses only on succes
     initscr();

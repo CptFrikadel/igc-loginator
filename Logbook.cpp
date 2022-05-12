@@ -120,7 +120,14 @@ void Logbook::printLogbook(){
 void Logbook::appendFlight(const FlightData &_flight){
 
     total_duration += _flight.flight_duration;
+    total_flights++;
 
     flights.push_back(_flight);
 
+}
+
+
+std::string Logbook::getTotalDuration(){
+
+    return calcDuration(total_duration);
 }
