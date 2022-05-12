@@ -22,7 +22,8 @@ public:
 private:
     std::list<FlightData> flights;
 
-    double total_duration = 0;
+    long total_hours = 0;
+    long total_minutes = 0;
     long total_flights = 0;
 
     bool print_totals = true;

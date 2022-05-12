@@ -74,7 +74,7 @@ void Logbook::printCursesLogbook(){
         total_row.push_back("-----"); //Date
         total_row.push_back("-----"); // Takeoff time
         total_row.push_back("Total"); // Landing time
-        total_row.push_back(calcDuration(total_duration)); // Duration
+        total_row.push_back(getTotalDuration()); // Duration
 
         if (print_pilot)
             total_row.push_back(""); // pilot
@@ -119,7 +119,9 @@ void Logbook::printLogbook(){
 
 void Logbook::appendFlight(const FlightData &_flight){
 
-    total_duration += _flight.flight_duration;
+    total_hours += _flight.flight_duration / 3600;
+    total_minutes += ((int) _flight.flight_duration % 3600) / 60;
+
     total_flights++;
 
     flights.push_back(_flight);
@@ -129,5 +131,11 @@ void Logbook::appendFlight(const FlightData &_flight){
 
 std::string Logbook::getTotalDuration(){
 
-    return calcDuration(total_duration);
+    total_hours += (total_minutes / 60);
+    total_minutes = total_minutes % 60;
+
+    std::stringstream ss;
+
+    ss << total_hours << ":" << total_minutes;
+    return ss.str();
 }
