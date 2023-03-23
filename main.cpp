@@ -3,6 +3,7 @@
 #include <list>
 #include <curses.h>
 
+#include "CursesTable.hpp"
 #include "IGCReader.hpp"
 #include "Logbook.hpp"
 
@@ -84,6 +85,7 @@ int main (int argc, char * argv[]){
 
     std::cout << "Yo Whaddup!" << std::endl;
 
+
     // Parsing files might exit on error. Init ncurses only on succes
     initscr();
     setlocale(LC_ALL, "");
@@ -92,8 +94,9 @@ int main (int argc, char * argv[]){
     noecho();
     keypad(stdscr, true);
 
-    logbook.printLogbook();
-
+    CursesTable table;
+    logbook.BuildCursesLogbook(table);
+    table.Display();
 
     endwin();
     return 0;

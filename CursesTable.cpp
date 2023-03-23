@@ -6,6 +6,43 @@
 
 static constexpr int head_size = 3;
 
+void CursesTable::Display()
+{
+    active = true;
+
+    adjustColumnsToFill();
+
+    redraw();
+
+
+    bool quit = false;
+    while (!quit)
+    {
+        switch (getch()){
+            case 'q':
+                quit = true;
+                break;
+            case 27:
+                quit = true;
+                break;
+            case 'j':
+                scroll_lines(1);
+                break;
+            case KEY_DOWN:
+                scroll_lines(1);
+                break;
+            case 'k':
+                scroll_lines(-1);
+                break;
+            case KEY_UP:
+                scroll_lines(-1);
+                break;
+        }
+    }
+
+    active = false;
+}
+
 void CursesTable::adjustColumnsToFill(){
 
     // Adjust column sizes to fill the screen width
@@ -43,9 +80,6 @@ void CursesTable::setHead(const std::vector<std::string>& head_items){
 
     }
 
-    adjustColumnsToFill();
-
-    drawHead();
 }
 
 void CursesTable::addRow(const std::vector<std::string>& items){
@@ -63,6 +97,9 @@ void CursesTable::addRow(const std::vector<std::string>& items){
 }
 
 void CursesTable::redraw(){
+
+    if (!active)
+        return;
 
     erase();
     drawHead();

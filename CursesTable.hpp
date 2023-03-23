@@ -13,6 +13,7 @@ Class definition for the ncurses style logbook table
 class CursesTable {
 
     public:
+	void Display();
 	void addRow(const std::vector<std::string>& items);
 	void setHead(const std::vector<std::string>& head_items);
 	void scroll_lines(int lines);
@@ -31,6 +32,7 @@ class CursesTable {
 	bool scrolling = false;
 	int scroll_pos = 0;
 
+	bool active = false;
 };
 
 #endif
