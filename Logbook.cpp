@@ -5,11 +5,12 @@
 #include <sstream>
 #include <curses.h>
 #include <utility>
+#include <ranges>
 
 #include "CursesTable.hpp"
 #include "FlightList.hpp"
 
-static constexpr char date_format[] = "%d-%m";
+static constexpr char date_format[] = "%d-%m-%y'";
 static constexpr char time_format[] = "%H:%M";
 
 static std::string calcDuration(double flighttimeseconds){
@@ -41,7 +42,7 @@ bool Logbook::Date::operator<(const Date &other) const
 
 void Logbook::BuildCursesLogbook(CursesTable& table){
 
-    std::vector<std::string> head = {"Date", "Takeoff", "Landing", "Time"};
+    std::vector<std::string> head = {"Date   ", "Takeoff", "Landing", "Time"};
 
     if (print_pilot){
         head.push_back("Pilot");
