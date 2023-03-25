@@ -7,7 +7,9 @@ LIBS = -lncurses
 
 all: logbook
 
-debug: CXXFLAGS += -g
+CXXFLAGS = -std=gnu++20
+
+debug: CXXFLAGS += -g 
 debug: logbook
 
 %.o: %.cpp $(DEPS)

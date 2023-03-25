@@ -13,6 +13,7 @@ class FlightList
 public:
 
     unsigned long GetNumberOfFlights() const;
+    std::string GetNumberOfFlightsString() const;
     std::string GetTotalDurationString() const;
 
     const std::vector<FlightData>& Get() const { return flights; }

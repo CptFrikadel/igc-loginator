@@ -29,6 +29,13 @@ std::string FlightList::GetTotalDurationString() const
 }
 
 
+std::string FlightList::GetNumberOfFlightsString() const
+{
+    std::stringstream ss;
+    ss << std::setw(5) << flights.size();
+    return ss.str();
+}
+
 unsigned long FlightList::GetNumberOfFlights() const
 {
     return flights.size();

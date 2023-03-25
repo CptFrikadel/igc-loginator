@@ -50,7 +50,7 @@ void Logbook::BuildCursesLogbook(CursesTable& table){
 
     table.setHead(head);
 
-    for (auto [date, flightlist] : mFlightLists){
+    for (auto const& [date, flightlist] : mFlightLists | std::views::reverse){
         for (auto flight : flightlist.Get())
         {
             std::vector<std::string> item;
@@ -85,9 +85,9 @@ void Logbook::BuildCursesLogbook(CursesTable& table){
         if (print_totals)
         {
             std::vector<std::string> total_row;
-            total_row.push_back("-----"); //Date
+            total_row.push_back("Total"); //Date
             total_row.push_back("-----"); // Takeoff time
-            total_row.push_back("Total"); // Landing time
+            total_row.push_back(flightlist.GetNumberOfFlightsString()); // Landing time
             total_row.push_back(flightlist.GetTotalDurationString()); // Duration
 
             if (print_pilot)
