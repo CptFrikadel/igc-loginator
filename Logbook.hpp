@@ -4,13 +4,22 @@
 #ifndef LOGBOOK_HPP
 #define LOGBOOK_HPP
 
-#include <list>
+#include <map>
 #include "CursesTable.hpp"
 #include "FlightData.hpp"
+#include "FlightList.hpp"
 
 class Logbook {
 
 public:
+    
+    struct Date 
+    {
+	int year;
+	int day;
+
+	bool operator<(const Date& other) const;
+    };
 
     void BuildCursesLogbook(CursesTable& cursesTable);
 
@@ -22,7 +31,7 @@ public:
     long getTotalFlights(){ return total_flights;}
 
 private:
-    std::list<FlightData> flights;
+    std::map<Date, FlightList> mFlightLists;
 
     long total_hours = 0;
     long total_minutes = 0;

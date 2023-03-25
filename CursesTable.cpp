@@ -2,6 +2,7 @@
 
 #include <curses.h>
 #include <iostream>
+#include <vector>
 
 
 static constexpr int head_size = 3;
@@ -95,6 +96,19 @@ void CursesTable::addRow(const std::vector<std::string>& items){
 
     redraw();
 }
+
+
+void CursesTable::addBlankRow()
+{
+    std::vector<std::string> row;
+    for (int col = 0; col < num_columns; col++)
+    {
+        row.emplace_back("");
+    }
+
+    addRow(row);
+}
+
 
 void CursesTable::redraw(){
 

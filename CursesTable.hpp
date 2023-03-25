@@ -15,6 +15,7 @@ class CursesTable {
     public:
 	void Display();
 	void addRow(const std::vector<std::string>& items);
+	void addBlankRow();
 	void setHead(const std::vector<std::string>& head_items);
 	void scroll_lines(int lines);
 

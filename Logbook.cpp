@@ -4,8 +4,10 @@
 #include <iomanip>
 #include <sstream>
 #include <curses.h>
+#include <utility>
 
 #include "CursesTable.hpp"
+#include "FlightList.hpp"
 
 static constexpr char date_format[] = "%d-%m";
 static constexpr char time_format[] = "%H:%M";
@@ -25,6 +27,18 @@ static std::string calcDuration(double flighttimeseconds){
 }
 
 
+bool Logbook::Date::operator<(const Date &other) const
+{
+
+    if (year == other.year)
+    {
+        return day < other.day;
+    }
+
+    return year < other.year;
+}
+
+
 void Logbook::BuildCursesLogbook(CursesTable& table){
 
     std::vector<std::string> head = {"Date", "Takeoff", "Landing", "Time"};
@@ -35,36 +49,53 @@ void Logbook::BuildCursesLogbook(CursesTable& table){
 
     table.setHead(head);
 
-    for (FlightData flight : flights){
+    for (auto [date, flightlist] : mFlightLists){
+        for (auto flight : flightlist.Get())
+        {
+            std::vector<std::string> item;
 
-        std::vector<std::string> item;
+            // Build date string
+            std::stringstream date;
+            date << std::put_time(&flight.takeoff_time, date_format);
+            item.push_back(date.str());
 
-        // Build date string
-        std::stringstream date;
-        date << std::put_time(&flight.takeoff_time, date_format);
-        item.push_back(date.str());
+            // Build takeoff time
+            std::stringstream takeoff;
+            takeoff << std::put_time(&flight.takeoff_time, time_format);
+            item.push_back(takeoff.str());
 
-        // Build takeoff time
-        std::stringstream takeoff;
-        takeoff << std::put_time(&flight.takeoff_time, time_format);
-        item.push_back(takeoff.str());
+            // Build landing time string
+            std::stringstream landing;
+            landing << std::put_time(&flight.landing_time, time_format);
+            item.push_back(landing.str());
 
-        // Build landing time string
-        std::stringstream landing;
-        landing << std::put_time(&flight.landing_time, time_format);
-        item.push_back(landing.str());
+            // Build Duration string
+            item.push_back(calcDuration(flight.flight_duration));
 
-        // Build Duration string
-        item.push_back(calcDuration(flight.flight_duration));
-
-        // Build pilot string
-        if(print_pilot)
-            item.push_back(flight.pilot_name.c_str());
+            // Build pilot string
+            if(print_pilot)
+                item.push_back(flight.pilot_name.c_str());
 
 
-        // Add to table
-        table.addRow(item);
+            // Add to table
+            table.addRow(item);
+        }
 
+        if (print_totals)
+        {
+            std::vector<std::string> total_row;
+            total_row.push_back("-----"); //Date
+            total_row.push_back("-----"); // Takeoff time
+            total_row.push_back("Total"); // Landing time
+            total_row.push_back(flightlist.GetTotalDurationString()); // Duration
+
+            if (print_pilot)
+                total_row.push_back(""); // pilot
+
+            table.addRow(total_row);
+
+            table.addBlankRow();
+        }
     }
 
     if (print_totals){
@@ -83,15 +114,26 @@ void Logbook::BuildCursesLogbook(CursesTable& table){
 }
 
 
-void Logbook::appendFlight(const FlightData &_flight){
+void Logbook::appendFlight(const FlightData &flight){
 
-    total_hours += _flight.flight_duration / 3600;
-    total_minutes += ((int) _flight.flight_duration % 3600) / 60;
+    total_hours += flight.flight_duration / 3600;
+    total_minutes += ((int) flight.flight_duration % 3600) / 60;
 
     total_flights++;
 
-    flights.push_back(_flight);
+    Date date;
+    date.year = flight.landing_time.tm_year;
+    date.day = flight.landing_time.tm_yday;
 
+    auto search = mFlightLists.find(date);
+    if ( search != mFlightLists.end())
+    {
+        search->second.Append(flight);
+    } 
+    else 
+    {
+        mFlightLists.emplace(std::make_pair(date, FlightList().Append(flight)));
+    }
 }
 
 
