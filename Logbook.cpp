@@ -17,12 +17,15 @@ static std::string calcDuration(double flighttimeseconds){
 
     std::stringstream duration;
 
-    int duration_minutes, duration_hours;
+    //int duration_minutes, duration_hours;
 
-    duration_hours = flighttimeseconds / 3600;
-    duration_minutes = ((int) flighttimeseconds % 3600) / 60;
-    duration << std::setw(2) << duration_hours << ":" << std::setfill('0')
-        << std::setw(2) << duration_minutes;
+    //duration_hours = flighttimeseconds / 3600;
+    //duration_minutes = ((int) flighttimeseconds % 3600) / 60;
+    //duration << std::setw(2) << duration_hours << ":" << std::setfill('0')
+    //    << std::setw(2) << duration_minutes;
+
+    // DEBUG
+    duration << flighttimeseconds;
 
     return duration.str();
 }
