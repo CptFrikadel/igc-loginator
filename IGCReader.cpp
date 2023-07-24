@@ -90,8 +90,7 @@ FlightData IGCReader::readIGC(){
     flight_data.landing_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
 
     // Calculate flight time
-    flight_data.flight_duration = std::difftime(std::mktime(&flight_data.landing_time),
-            std::mktime(&flight_data.takeoff_time));
+    flight_data.flight_duration = std::mktime(&flight_data.landing_time) - std::mktime(&flight_data.takeoff_time);
 
     return flight_data;
 }
