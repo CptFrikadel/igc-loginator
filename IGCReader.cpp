@@ -1,9 +1,12 @@
 #include <cctype>
+#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <iterator>
 
 #include "IGCReader.hpp"
+#include "JulianTime.hpp"
 
 static std::tm parseTime(const std::string line){
 
@@ -23,6 +26,13 @@ static inline void rtrim(std::string &s){
                 }).base(), s.end());
 
 }
+
+
+static double CalculateDuration(const std::tm& begin, const std::tm& end)
+{
+    return static_cast<double>(JulianTime::EpochSeconds(end) - JulianTime::EpochSeconds(begin));
+}
+
 
 IGCReader::IGCReader(const std::string _file): file_name(_file){
 
@@ -84,14 +94,18 @@ FlightData IGCReader::readIGC(){
     flight_data.takeoff_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
     flight_data.takeoff_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0') - 1;
     flight_data.takeoff_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
+    std::mktime(&flight_data.takeoff_time);
 
     flight_data.landing_time.tm_mday = (date[0] - '0')*10 + (date[1] - '0');
     flight_data.landing_time.tm_mon = (date[2] - '0')*10 + (date[3] - '0') - 1;
     flight_data.landing_time.tm_year = 100 + (date[4] - '0')*10 + (date[5] - '0'); // NOTE: assumes year > 2000
+    std::mktime(&flight_data.landing_time);
 
-    // Calculate flight time
-    flight_data.flight_duration = std::difftime(std::mktime(&flight_data.landing_time),
-            std::mktime(&flight_data.takeoff_time));
+
+    // Calculate flight time from scratch because time_t calulations don't seem
+    // to work on OV-linux for some reason..
+    flight_data.flight_duration = CalculateDuration(flight_data.takeoff_time, flight_data.landing_time);
+
 
     return flight_data;
 }

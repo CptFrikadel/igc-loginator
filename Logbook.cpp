@@ -1,6 +1,5 @@
 #include "Logbook.hpp"
 #include <iostream>
-#include <stdio.h>
 #include <iomanip>
 #include <sstream>
 #include <curses.h>
@@ -33,7 +32,13 @@ bool Logbook::Date::operator<(const Date &other) const
 
     if (year == other.year)
     {
-        return day < other.day;
+        if (month == other.month)
+        {
+            return day < other.day;
+        } else 
+        {
+            return month < other.month;
+        }
     }
 
     return year < other.year;
@@ -124,7 +129,8 @@ void Logbook::appendFlight(const FlightData &flight){
 
     Date date;
     date.year = flight.landing_time.tm_year;
-    date.day = flight.landing_time.tm_yday;
+    date.day = flight.landing_time.tm_mday;
+    date.month = flight.landing_time.tm_mon;
 
     auto search = mFlightLists.find(date);
     if ( search != mFlightLists.end())
